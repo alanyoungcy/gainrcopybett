@@ -57,9 +57,9 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-orange-50/20 to-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-orange-50/20 to-gray-50 pb-16">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-xl border-b border-gray-200/50 sticky top-0 z-50 shadow-sm">
+      <header className="bg-white/80 backdrop-blur-xl border-b border-gray-200/50 sticky top-0 z-50 shadow-sm mb-8">
         <div className="max-w-[1400px] mx-auto px-8">
           <div className="flex items-center justify-between h-20">
             <div className="flex items-center gap-12">
@@ -120,8 +120,8 @@ export default function Home() {
 
       {/* Discover Tab */}
       {activeTab === 'discover' && (
-        <div className="max-w-[1400px] mx-auto px-8 py-12">
-          <div className="mb-12">
+        <div className="max-w-[1400px] mx-auto px-8 py-8">
+          <div className="mb-10">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-100 rounded-full mb-4">
               <Star className="w-4 h-4 text-orange-600" />
               <span className="text-sm font-bold text-orange-900">Top Performers</span>
@@ -244,8 +244,8 @@ export default function Home() {
 
       {/* Markets Tab */}
       {activeTab === 'markets' && (
-        <div className="max-w-[1400px] mx-auto px-8 py-12">
-          <div className="mb-12">
+        <div className="max-w-[1400px] mx-auto px-8 py-8">
+          <div className="mb-10">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 rounded-full mb-4">
               <Activity className="w-4 h-4 text-blue-600" />
               <span className="text-sm font-bold text-blue-900">Live Betting</span>
@@ -383,8 +383,8 @@ export default function Home() {
 
       {/* Portfolio Tab */}
       {activeTab === 'portfolio' && (
-        <div className="max-w-[1400px] mx-auto px-8 py-12">
-          <div className="mb-12">
+        <div className="max-w-[1400px] mx-auto px-8 py-8">
+          <div className="mb-10">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 rounded-full mb-4">
               <BarChart3 className="w-4 h-4 text-purple-600" />
               <span className="text-sm font-bold text-purple-900">Your Performance</span>
@@ -393,7 +393,7 @@ export default function Home() {
             <p className="text-lg text-gray-600">Track your investments and returns in real-time</p>
           </div>
 
-          <div className="grid grid-cols-3 gap-6 mb-12">
+          <div className="grid grid-cols-3 gap-6 mb-10">
             <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-8 text-white shadow-xl">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
