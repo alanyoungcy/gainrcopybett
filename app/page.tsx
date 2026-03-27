@@ -1,20 +1,205 @@
 'use client';
 
 import { useState } from 'react';
-import { TrendingUp, Users, Trophy, Star, ArrowUpRight, ArrowDownRight, Clock, Activity, BarChart3, Wallet, Copy, Check, Zap, Target } from 'lucide-react';
+import { TrendingUp, Users, Trophy, Star, ArrowUpRight, ArrowDownRight, Clock, Activity, BarChart3, Wallet, Copy, Check, Zap, Target, TrendingDown } from 'lucide-react';
+import { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 const topTraders = [
-  { id: 1, name: 'Mike "The Shark" Johnson', roi: 127.5, winRate: 68, followers: 2847, avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Mike', streak: 12, totalBets: 234, copiers: 156, monthlyReturn: 18.5, risk: 'Medium' },
-  { id: 2, name: 'Sarah Chen', roi: 98.3, winRate: 64, followers: 1923, avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah', streak: 8, totalBets: 189, copiers: 98, monthlyReturn: 14.2, risk: 'Low' },
-  { id: 3, name: 'Alex Rodriguez', roi: 85.7, winRate: 61, followers: 1654, avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Alex', streak: 15, totalBets: 312, copiers: 134, monthlyReturn: 12.8, risk: 'Medium' },
-  { id: 4, name: 'Emma Williams', roi: 76.2, winRate: 59, followers: 1432, avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Emma', streak: 6, totalBets: 156, copiers: 87, monthlyReturn: 10.5, risk: 'Low' },
+  {
+    id: 1,
+    name: 'Mike "The Shark" Johnson',
+    roi: 127.5,
+    winRate: 68,
+    followers: 2847,
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Mike',
+    streak: 12,
+    totalBets: 234,
+    copiers: 156,
+    monthlyReturn: 18.5,
+    risk: 'Medium',
+    performance: [
+      { month: 'Jan', roi: 15 },
+      { month: 'Feb', roi: 28 },
+      { month: 'Mar', roi: 45 },
+      { month: 'Apr', roi: 62 },
+      { month: 'May', roi: 88 },
+      { month: 'Jun', roi: 127.5 }
+    ],
+    sports: [
+      { name: 'Soccer', value: 45, color: '#f97316' },
+      { name: 'Basketball', value: 30, color: '#3b82f6' },
+      { name: 'Tennis', value: 25, color: '#10b981' }
+    ]
+  },
+  {
+    id: 2,
+    name: 'Sarah Chen',
+    roi: 98.3,
+    winRate: 64,
+    followers: 1923,
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah',
+    streak: 8,
+    totalBets: 189,
+    copiers: 98,
+    monthlyReturn: 14.2,
+    risk: 'Low',
+    performance: [
+      { month: 'Jan', roi: 12 },
+      { month: 'Feb', roi: 24 },
+      { month: 'Mar', roi: 38 },
+      { month: 'Apr', roi: 55 },
+      { month: 'May', roi: 76 },
+      { month: 'Jun', roi: 98.3 }
+    ],
+    sports: [
+      { name: 'Soccer', value: 60, color: '#f97316' },
+      { name: 'Basketball', value: 25, color: '#3b82f6' },
+      { name: 'Tennis', value: 15, color: '#10b981' }
+    ]
+  },
+  {
+    id: 3,
+    name: 'Alex Rodriguez',
+    roi: 85.7,
+    winRate: 61,
+    followers: 1654,
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Alex',
+    streak: 15,
+    totalBets: 312,
+    copiers: 134,
+    monthlyReturn: 12.8,
+    risk: 'Medium',
+    performance: [
+      { month: 'Jan', roi: 10 },
+      { month: 'Feb', roi: 22 },
+      { month: 'Mar', roi: 35 },
+      { month: 'Apr', roi: 48 },
+      { month: 'May', roi: 65 },
+      { month: 'Jun', roi: 85.7 }
+    ],
+    sports: [
+      { name: 'Soccer', value: 35, color: '#f97316' },
+      { name: 'Basketball', value: 40, color: '#3b82f6' },
+      { name: 'Tennis', value: 25, color: '#10b981' }
+    ]
+  },
+  {
+    id: 4,
+    name: 'Emma Williams',
+    roi: 76.2,
+    winRate: 59,
+    followers: 1432,
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Emma',
+    streak: 6,
+    totalBets: 156,
+    copiers: 87,
+    monthlyReturn: 10.5,
+    risk: 'Low',
+    performance: [
+      { month: 'Jan', roi: 8 },
+      { month: 'Feb', roi: 18 },
+      { month: 'Mar', roi: 32 },
+      { month: 'Apr', roi: 45 },
+      { month: 'May', roi: 58 },
+      { month: 'Jun', roi: 76.2 }
+    ],
+    sports: [
+      { name: 'Soccer', value: 50, color: '#f97316' },
+      { name: 'Basketball', value: 30, color: '#3b82f6' },
+      { name: 'Tennis', value: 20, color: '#10b981' }
+    ]
+  },
 ];
 
 const liveMarkets = [
-  { id: 1, sport: 'Soccer', league: 'Premier League', event: 'Arsenal vs Chelsea', market: 'Arsenal to Win', odds: 1.85, volume: 124000, trend: 'up', change: 12, time: '2h 15m', yesPrice: 54, noPrice: 46 },
-  { id: 2, sport: 'Basketball', league: 'NBA', event: 'Lakers vs Warriors', market: 'Over 215.5 Points', odds: 1.92, volume: 98000, trend: 'down', change: -8, time: '5h 30m', yesPrice: 52, noPrice: 48 },
-  { id: 3, sport: 'Soccer', league: 'La Liga', event: 'Real Madrid vs Barcelona', market: 'Both Teams to Score', odds: 1.75, volume: 156000, trend: 'up', change: 18, time: '1d 3h', yesPrice: 57, noPrice: 43 },
-  { id: 4, sport: 'Tennis', league: 'ATP Finals', event: 'Djokovic vs Alcaraz', market: 'Djokovic to Win', odds: 2.10, volume: 67000, trend: 'up', change: 5, time: '12h 45m', yesPrice: 48, noPrice: 52 },
+  {
+    id: 1,
+    sport: 'Soccer',
+    league: 'Premier League',
+    event: 'Arsenal vs Chelsea',
+    market: 'Arsenal to Win',
+    odds: 1.85,
+    volume: 124000,
+    trend: 'up',
+    change: 12,
+    time: '2h 15m',
+    yesPrice: 54,
+    noPrice: 46,
+    priceHistory: [
+      { time: '6h', yes: 48, no: 52 },
+      { time: '5h', yes: 50, no: 50 },
+      { time: '4h', yes: 51, no: 49 },
+      { time: '3h', yes: 52, no: 48 },
+      { time: '2h', yes: 53, no: 47 },
+      { time: 'Now', yes: 54, no: 46 }
+    ]
+  },
+  {
+    id: 2,
+    sport: 'Basketball',
+    league: 'NBA',
+    event: 'Lakers vs Warriors',
+    market: 'Over 215.5 Points',
+    odds: 1.92,
+    volume: 98000,
+    trend: 'down',
+    change: -8,
+    time: '5h 30m',
+    yesPrice: 52,
+    noPrice: 48,
+    priceHistory: [
+      { time: '6h', yes: 58, no: 42 },
+      { time: '5h', yes: 57, no: 43 },
+      { time: '4h', yes: 55, no: 45 },
+      { time: '3h', yes: 54, no: 46 },
+      { time: '2h', yes: 53, no: 47 },
+      { time: 'Now', yes: 52, no: 48 }
+    ]
+  },
+  {
+    id: 3,
+    sport: 'Soccer',
+    league: 'La Liga',
+    event: 'Real Madrid vs Barcelona',
+    market: 'Both Teams to Score',
+    odds: 1.75,
+    volume: 156000,
+    trend: 'up',
+    change: 18,
+    time: '1d 3h',
+    yesPrice: 57,
+    noPrice: 43,
+    priceHistory: [
+      { time: '6h', yes: 50, no: 50 },
+      { time: '5h', yes: 52, no: 48 },
+      { time: '4h', yes: 53, no: 47 },
+      { time: '3h', yes: 54, no: 46 },
+      { time: '2h', yes: 56, no: 44 },
+      { time: 'Now', yes: 57, no: 43 }
+    ]
+  },
+  {
+    id: 4,
+    sport: 'Tennis',
+    league: 'ATP Finals',
+    event: 'Djokovic vs Alcaraz',
+    market: 'Djokovic to Win',
+    odds: 2.10,
+    volume: 67000,
+    trend: 'up',
+    change: 5,
+    time: '12h 45m',
+    yesPrice: 48,
+    noPrice: 52,
+    priceHistory: [
+      { time: '6h', yes: 45, no: 55 },
+      { time: '5h', yes: 46, no: 54 },
+      { time: '4h', yes: 46, no: 54 },
+      { time: '3h', yes: 47, no: 53 },
+      { time: '2h', yes: 47, no: 53 },
+      { time: 'Now', yes: 48, no: 52 }
+    ]
+  },
 ];
 
 export default function Home() {
@@ -191,6 +376,34 @@ export default function Home() {
                   </div>
                 </div>
 
+                <div className="grid grid-cols-2 gap-6 mb-6">
+                  <div className="bg-white rounded-xl p-6 border border-gray-200">
+                    <h4 className="text-sm font-bold text-gray-700 mb-4">6-Month Performance</h4>
+                    <ResponsiveContainer width="100%" height={200}>
+                      <LineChart data={trader.performance}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                        <XAxis dataKey="month" stroke="#999" style={{ fontSize: '12px' }} />
+                        <YAxis stroke="#999" style={{ fontSize: '12px' }} />
+                        <Tooltip />
+                        <Line type="monotone" dataKey="roi" stroke="#f97316" strokeWidth={3} dot={{ fill: '#f97316', r: 4 }} />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                  <div className="bg-white rounded-xl p-6 border border-gray-200">
+                    <h4 className="text-sm font-bold text-gray-700 mb-4">Sport Distribution</h4>
+                    <ResponsiveContainer width="100%" height={200}>
+                      <PieChart>
+                        <Pie data={trader.sports} dataKey="value" cx="50%" cy="50%" outerRadius={70} label={(entry) => `${entry.name} ${entry.value}%`}>
+                          {trader.sports.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={entry.color} />
+                          ))}
+                        </Pie>
+                        <Tooltip />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+
                 {selectedTrader === trader.id ? (
                   <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl p-6 border border-orange-200">
                     <h4 className="text-lg font-bold text-gray-900 mb-4">Set Copy Amount</h4>
@@ -282,6 +495,20 @@ export default function Home() {
                     <div className="text-sm text-gray-500 font-medium mb-1">Trading Volume</div>
                     <div className="text-2xl font-bold text-gray-900">${(market.volume / 1000).toFixed(0)}K</div>
                   </div>
+                </div>
+
+                <div className="mb-6 bg-white rounded-xl p-6 border border-gray-200">
+                  <h4 className="text-sm font-bold text-gray-700 mb-4">Price Movement (Last 6 Hours)</h4>
+                  <ResponsiveContainer width="100%" height={180}>
+                    <AreaChart data={market.priceHistory}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                      <XAxis dataKey="time" stroke="#999" style={{ fontSize: '12px' }} />
+                      <YAxis stroke="#999" style={{ fontSize: '12px' }} domain={[0, 100]} />
+                      <Tooltip />
+                      <Area type="monotone" dataKey="yes" stackId="1" stroke="#10b981" fill="#10b981" fillOpacity={0.6} />
+                      <Area type="monotone" dataKey="no" stackId="1" stroke="#ef4444" fill="#ef4444" fillOpacity={0.6} />
+                    </AreaChart>
+                  </ResponsiveContainer>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 mb-6">
