@@ -13,11 +13,14 @@
   --orange-800: #9a3412;
   --orange-900: #7c2d12;
 
-  --bg-primary: #fafaf9;
+  --bg-primary: #f5f5f7;
   --bg-secondary: #ffffff;
-  --text-primary: #1c1917;
-  --text-secondary: #57534e;
-  --border: #e7e5e4;
+  --bg-tertiary: #f9f9fb;
+  --text-primary: #1d1d1f;
+  --text-secondary: #86868b;
+  --text-tertiary: #aeaeb2;
+  --border: #e5e5ea;
+  --border-light: #f0f0f2;
 }
 
 * {
